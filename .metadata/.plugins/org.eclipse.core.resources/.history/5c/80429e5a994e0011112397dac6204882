@@ -1,0 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ page import="java.util.List"%>
+<%@ page import="com.model.Book"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ALL BOOKS</title>
+<link rel="stylesheet" type="text/css" href="css/table.css">
+</head>
+<body>
+
+	<%
+    List<Book> bookList = (List<Book>) request.getAttribute("bookList");	
+	%>
+
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>NAME</th>
+			<th>AUTHOR</th>
+			<th>PRICE</th>
+			<th>QUANTITY</th>
+			<th>DELETE</th>
+			<th>UPDATE</th>
+		</tr>
+
+		<%
+        for (Book book : bookList) {
+    %>
+		<tr>
+			<td><%= book.getId() %></td>
+			<td><%= book.getTitle() %></td>
+			<td><%= book.getAuthor() %></td>
+			<td><%= book.getPrice() %></td>
+			<td><%= book.getQuantity() %></td>
+
+			<td><a href="deleteBook?id=<%= book.getId() %>">DELETE</a></td>
+
+			<td><a href="updateFormBookServlet?id=<%= book.getId() %>">UPDATE</a>
+			</td>
+		</tr>
+		<%
+        }
+    %>
+	</table>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Student App</title>
+</head>
+
+<body>
+
+<h1>Application Running</h1>
+
+<form action="addStudent" method="post">
+
+Name:
+<input type="text" name="name"><br><br>
+
+Marks:
+<input type="text" name="marks"><br><br>
+
+<input type="submit" value="Submit">
+
+</form>
+
+</body>
+</html>

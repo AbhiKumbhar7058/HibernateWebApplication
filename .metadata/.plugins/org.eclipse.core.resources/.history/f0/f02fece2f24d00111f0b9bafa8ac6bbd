@@ -1,0 +1,88 @@
+package com.dao;
+
+import java.util.List;
+
+import org.hibernate.Transaction;
+
+import com.entity.Book;
+import com.entity.Student;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import com.utility.HibernateUtility;
+
+public class BookDaoImpl implements BookDao {
+
+	@Override
+	public void addBook(Book book) {
+		SessionFactory factory = HibernateUtility.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.save(book);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
+	}
+
+	@Override
+	public void updateeBook(Book book) {
+		SessionFactory factory = HibernateUtility.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.update(book);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
+	}
+
+	@Override
+	public void deleteBookById(int id) {
+		SessionFactory factory = HibernateUtility.getSessionFactory();
+		Session session = factory.openSession();
+		Book book1 = new Book();
+		book1.setId(id);
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.delete(book1);
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			throw e;
+		}finally {
+			session.close();
+		}
+
+	}
+
+	@Override
+	public Book findBookId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Book> findAllBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

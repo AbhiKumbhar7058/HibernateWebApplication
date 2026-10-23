@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.entity.Book"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css" href="css/form.css"></head>
+<body>
+	<%
+	Book book = (Book) request.getAttribute("book") ;
+	%>
+
+	<h2>BOOK UPDATE FORM</h2>
+
+	<form action="updateBook" method="post">
+		<label>ID</label><br> <input type="text" name="id"
+			value="<%=book.getId()%>" readonly><br> 
+		<label>TITLE</label><br>
+		<input type="text" name="title" value="<%=book.getTitle()%>"><br>
+		<label>AUTHOR</label><br> <input type="text" name="author"
+			value="<%=book.getAuthor()%>"><br> 
+		<label>PRICE</label><br>
+		<input type="text" name="price" value="<%=book.getPrice()%>"><br>
+		<label>QUANTITY</label><br> <input type="text" name="quantity"
+			value="<%=book.getQuantity()%>"><br> <input
+			type="submit" value="UPDATE">
+	</form>
+</body>
+</html>

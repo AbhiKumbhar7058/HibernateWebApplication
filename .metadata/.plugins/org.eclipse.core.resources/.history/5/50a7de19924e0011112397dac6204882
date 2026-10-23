@@ -1,0 +1,19 @@
+package com.dao;
+
+import com.entity.Book;
+
+import java.util.*;
+
+public interface BookDao {
+
+	int addBook(Book book);
+	
+	void updateeBook(Book book);
+	
+	int  deleteBookById(int id);
+	
+	Book findBookById(int id);
+	
+	List<Book> findAllBook();
+	
+}

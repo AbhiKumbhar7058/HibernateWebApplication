@@ -1,0 +1,64 @@
+package com.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dao.StudentDao;
+import com.dao.StudentDaoImpl;
+import com.entity.Student;
+
+@WebServlet("/addStudent")
+public class AddStudServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    public AddStudServlet() {
+        super();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("name");
+
+        double marks = Double.parseDouble(
+                request.getParameter("marks"));
+
+        // Create Student Object
+        Student student = new Student();
+
+        student.setName(name);
+        student.setMarks(marks);
+
+        // Save using DAO
+        StudentDao dao = new StudentDaoImpl();
+
+        dao.saveStudent(student);
+
+        out.println("<h1>Student Saved Successfully</h1>");
+
+        out.println("<h2>Name : " + name + "</h2>");
+
+        out.println("<h2>Marks : " + marks + "</h2>");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        doPost(request, response);
+    }
+}

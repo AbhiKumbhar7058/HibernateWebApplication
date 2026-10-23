@@ -1,0 +1,100 @@
+package com.dao;
+
+import java.util.List;
+
+import org.hibernate.Transaction;
+
+import com.entity.Book;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import com.utility.HibernateUtility;
+
+public class BookDaoImpl implements BookDao {
+
+	@Override
+	public void addBook(Book book) {
+		SessionFactory factory = HibernateUtility.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.save(book);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
+	}
+
+	@Override
+	public void updateeBook(Book book) {
+		SessionFactory factory = HibernateUtility.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.update(book);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
+	}
+
+	@Override
+	public void deleteBookById(int id) {
+		SessionFactory factory = HibernateUtility.getSessionFactory();
+		Session session = factory.openSession();
+		Book book1 = new Book();
+		book1.setId(id);
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.delete(book1);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
+	}
+
+	@Override
+	public Book findBookById(int id) {
+		SessionFactory factory = HibernateUtility.getSessionFactory();
+		Session session = factory.openSession();
+		Book book = null;
+		try {
+			book = session.get(Book.class, id);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return book;
+	}
+
+	@Override
+	public List<Book> findAllBook() {
+		SessionFactory factory = HibernateUtility.getSessionFactory();
+		Session session = factory.openSession();
+		String hql = "from Student s";
+		Query<Book> query = session.createQuery(hql);
+		return query.list();
+	}
+
+	}
+
+}
